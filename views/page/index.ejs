@@ -20,6 +20,11 @@
             <%= flash.error %>
         </div>
         <% } %>
+        <% if (locals.flash && locals.flash.success) { %>
+            <div class="ui positive message">
+                <%= flash.success %>
+            </div>
+        <% } %>
 
         <form action="/" method="post" class="ui form">
             <div class="field">
@@ -31,6 +36,23 @@
             </button>
 
         </form>
+
+
+        <div class="ui comments">
+            <h3 class="ui dividing header">Commentaires</h3>
+            <% for (message of messages) { %>
+            <div class="comment">
+                <div class="content">
+                    <div class="metadata">
+                        <div class="date">
+                            <%= message.created_at.fromNow() %>
+                        </div>
+                    </div>
+                    <div class="text"> <%= message.content %> </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
     </div>
 </body>
 </html>

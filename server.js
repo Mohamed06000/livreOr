@@ -21,8 +21,11 @@ app.use(require('./middlewares/flash'))
 
 //routes
 app.get('/', (request, response) => {
-    console.log(request.session)
-    response.render('page/index')
+    let Message = require('./models/message')
+    Message.all((messages) => {
+        response.render('page/index', {messages: messages})
+    })
+
 })
 
 app.post('/', (request, response) => {
@@ -30,13 +33,14 @@ app.post('/', (request, response) => {
         request.flash('error', "Vous n'avez pas entré de message")
         response.redirect('/')
     } else {
-        let message = require('./models/message')
-        message.create(request.body.message, () => {
+        let Message = require('./models/message')
+        Message.create(request.body.message, () => {
             request.flash('success', "Merci!")
+            response.redirect('/')
         })
     }
 
-    response.redirect('/')
+
 })
 
 
