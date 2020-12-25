@@ -14,6 +14,9 @@ class Message {
         return moment(this.row.created_at)
     }
 
+    get id() {
+        return this.row.id
+    }
 
     static create (content, callback) {
         connection.query('INSERT INTO message SET content = ?, created_at = ?',
